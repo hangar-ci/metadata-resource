@@ -1,0 +1,31 @@
+name: release
+
+on:
+  push:
+    paths-ignore: ['.gitignore', '**/*.md']
+    branches: [master]
+    tags: ["*"]
+
+jobs:
+  docker-publish-tags:
+    if: contains(github.ref, 'refs/tags/v')
+    needs: [goreleaser-publish-tags]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ghcr.io/hangar-ci/metadata-resource
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        tag_semver: true
+  docker-publish-latest:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ghcr.io/hangar-ci/metadata-resource
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}

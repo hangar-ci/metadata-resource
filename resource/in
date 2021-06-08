@@ -1,0 +1,30 @@
+#!/bin/bash -e
+
+exec 3>&1 # make stdout available as fd 3 for the result
+exec 1>&2 # redirect all output to stderr for logging
+
+. $(dirname $0)/includes
+
+# Docs: https://concourse-ci.org/implementing-resource-types.html#resource-metadata
+# Examples:
+#    BUILD_ID=592538
+#    BUILD_TEAM_ID=96
+#    ATC_EXTERNAL_URL=https://my-concourse.host.com
+#    BUILD_PIPELINE_NAME=my-pipeline-dev
+#    BUILD_TEAM_NAME=my-team
+#    BUILD_PIPELINE_ID=3046
+#    BUILD_JOB_NAME=my-job-name
+#    BUILD_NAME=112
+#    BUILD_JOB_ID=10988
+
+while IFS='=' read name value;do
+    echo -e "$value" > "${1}/${name}"
+    log info "wrote '${1}/${name}'"
+    echo "export ${name}=${value}" >> "${1}/set-variables"
+done<<<"$(env | egrep -o "^(BUILD|ATC)_")"
+
+log success "wrote '${1}/set-variables' with all metadata build variables (source this)"
+
+echo 'echo "==> loaded all build environment variables from metadata"' >> "${1}/set-variables"
+
+echo '{"version":{}}' >&3
