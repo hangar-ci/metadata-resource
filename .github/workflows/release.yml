@@ -9,7 +9,6 @@ on:
 jobs:
   docker-publish-tags:
     if: contains(github.ref, 'refs/tags/v')
-    needs: [goreleaser-publish-tags]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
