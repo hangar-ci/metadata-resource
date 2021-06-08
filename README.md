@@ -1,7 +1,7 @@
 <p align="center">metadata-resource - Concourse resource for obtaining pipeline name, team name, etc</p>
 <p align="center">
   <a href="https://github.com/orgs/hangar-ci/packages?repo_name=metadata-resource"><img src="https://github.com/hangar-ci/metadata-resource/workflows/release/badge.svg" alt="Release Status"></a>
-  <a href="https://github.com/orgs/hangar-ci/packages/container/metadata-resource/versions"><img src="https://img.shields.io/badge/Docker-ghcr.io%2Fhangar-ci%2Fmetadata-resource%3Alatest-blue.svg" alt="Docker"></a>
+  <a href="https://github.com/orgs/hangar-ci/packages/container/metadata-resource/versions"><img src="https://img.shields.io/badge/Docker-hangar--ci%2Fmetadata--resource-blue.svg" alt="Docker"></a>
   <a href="https://liam.sh/chat"><img src="https://img.shields.io/badge/Community-Chat%20with%20us-green.svg" alt="Community Chat"></a>
 </p>
 
