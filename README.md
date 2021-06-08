@@ -16,7 +16,7 @@ resource_types:
   - name: metadata
     type: registry-image
     source:
-      repository: ghcro.io/hangar-ci/metadata-resource
+      repository: ghcr.io/hangar-ci/metadata-resource
       tag: latest
 
 resources:
