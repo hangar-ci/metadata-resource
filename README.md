@@ -1,8 +1,7 @@
 <p align="center">metadata-resource - Concourse resource for obtaining pipeline name, team name, etc</p>
 <p align="center">
-  <!--<a href="https://github.com/hangar-ci/metadata-resource/releases"><img src="https://github.com/hangar-ci/metadata-resource/workflows/release/badge.svg" alt="Release Status"></a>
-  <a href="https://github.com/hangar-ci/metadata-resource/actions"><img src="https://github.com/hangar-ci/metadata-resource/workflows/build/badge.svg" alt="Build Status"></a>
-  <a href="https://hub.docker.com/r/hangar-ci/metadata-resource/tags"><img src="https://img.shields.io/badge/Docker-hangar-ci%2Fvault--unseal%3Alatest-blue.svg" alt="Docker"></a> -->
+  <a href="https://github.com/orgs/hangar-ci/packages?repo_name=metadata-resource"><img src="https://github.com/hangar-ci/metadata-resource/workflows/release/badge.svg" alt="Release Status"></a>
+  <a href="https://github.com/orgs/hangar-ci/packages/container/metadata-resource/versions"><img src="https://img.shields.io/badge/Docker-ghcr.io%2Fhangar-ci%2Fmetadata-resource%3Alatest-blue.svg" alt="Docker"></a>
   <a href="https://liam.sh/chat"><img src="https://img.shields.io/badge/Community-Chat%20with%20us-green.svg" alt="Community Chat"></a>
 </p>
 
@@ -12,7 +11,62 @@ TODO
 
 ## Usage
 
-TODO
+```yaml
+resource_types:
+  - name: metadata
+    type: registry-image
+    source:
+      repository: ghcro.io/hangar-ci/metadata-resource
+      tag: latest
+
+resources:
+  - name: metadata
+    type: metadata
+
+jobs:
+  - name: build
+    plan:
+    - get: metadata
+    - task: build
+        file: tools/tasks/build/task.yml
+
+[...]
+```
+
+### Source Parameters
+
+*None.*
+
+## Behavior
+
+### `check`: Produces new data for each check run
+
+Produce the current timestamp for each check run to ensure the latest information is being utilized.
+
+### `in`: Write the metadata so it can be used in other jobs/tasks/etc.
+
+Take a look [here](https://github.com/hangar-ci/metadata-resource/blob/483d49a05e364513a74c4df71a80b18b507bcfca/resource/in#L9)
+for some examples of what metadata we would be writing.
+
+We write each environment variable into `<out-directory>/<env-name>`. Additionally, we write a script
+located at `<out-directory>/set-variables`, that you can source, to get the environment variables into
+your environment/script. E.g:
+
+```console
+$ source metadata/set-variables
+```
+
+#### Parameters
+
+*None.*
+
+### `out`: Unused
+
+Unused. Will throw an error.
+
+#### Parameters
+
+*None.*
 
 ## Contributing
 
