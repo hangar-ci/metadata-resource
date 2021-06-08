@@ -5,4 +5,4 @@ exec 1>&2 # redirect all output to stderr for logging
 
 . $(dirname $0)/includes
 
-log error "error: metadata output should not be used"
+log error "error: metadata 'out' should not be used"
