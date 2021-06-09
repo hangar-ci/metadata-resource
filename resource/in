@@ -20,9 +20,10 @@ exec 1>&2 # redirect all output to stderr for logging
 while IFS='=' read name value;do
     echo -e "$value" > "${1}/${name}"
     log info "wrote '${1}/${name}'"
-done<<<"$(env | egrep -o "^(BUILD|ATC)_")"
+done<<<"$(env | egrep "^(BUILD|ATC)_")"
 
-env | egrep -o "^(BUILD|ATC)_" >> "${1}/set-variables"
+env | egrep "^(BUILD|ATC)_" >> "${1}/set-variables"
+sed -ri 's/^(BUILD|ATC)_/export \1_/g' "${1}/set-variables"
 
 log success "wrote '${1}/set-variables' with all metadata build variables (source this)"
 
