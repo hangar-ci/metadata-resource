@@ -37,9 +37,9 @@ function log {
     esac
 
     if [ "$ERROR" -eq "1" ];then
-        >&2 echo -e "\n${PREFIX} error: ${@}${CR}"
+        >&2 echo -e "${PREFIX} error: ${@}${CR}"
         exit 1
     else
-        echo -e "\n${PREFIX} ${@}${CR}"
+        echo -e "${PREFIX} ${@}${CR}"
     fi
 }
