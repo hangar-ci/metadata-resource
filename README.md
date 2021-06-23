@@ -22,6 +22,7 @@ resource_types:
 resources:
   - name: metadata
     type: metadata
+    expose_build_created_by: true # Exposes who invoked the build -- can only be specified for Concourse v7.0.0+!
 
 jobs:
   - name: build
